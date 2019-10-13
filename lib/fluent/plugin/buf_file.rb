@@ -50,6 +50,7 @@ module Fluent
         @symlink_path = nil
         @multi_workers_available = false
         @additional_resume_path = nil
+        @buffer_path = nil
       end
 
       def configure(conf)
@@ -73,7 +74,8 @@ module Fluent
           raise ConfigError, "Other '#{type_using_this_path}' plugin already use same buffer path: type = #{type_of_owner}, buffer path = #{@path}"
         end
 
-        @@buffer_paths[@path] = type_of_owner
+        @buffer_path = @path
+        @@buffer_paths[@buffer_path] = type_of_owner
 
         specified_directory_exists = File.exist?(@path) && File.directory?(@path)
         unexisting_path_for_directory = !File.exist?(@path) && !@path.include?('.*')
@@ -122,6 +124,12 @@ module Fluent
         super
       end
 
+      def stop
+        @@buffer_paths.delete(@buffer_path)
+
+        super
+      end
+
       def persistent?
         true
       end
@@ -146,7 +154,7 @@ module Fluent
           end
 
           begin
-            chunk = Fluent::Plugin::Buffer::FileChunk.new(m, path, mode) # file chunk resumes contents of metadata
+            chunk = Fluent::Plugin::Buffer::FileChunk.new(m, path, mode, compress: @compress) # file chunk resumes contents of metadata
           rescue Fluent::Plugin::Buffer::FileChunk::FileChunkError => e
             handle_broken_files(path, mode, e)
             next

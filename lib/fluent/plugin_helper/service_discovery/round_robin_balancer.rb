@@ -15,7 +15,29 @@
 #
 
 module Fluent
+  module PluginHelper
+    module ServiceDiscovery
+      class RoundRobinBalancer
+        def initialize
+          @services = []
+          @mutex = Mutex.new
+        end
 
-  VERSION = '1.7.3'
+        def rebalance(services)
+          @mutex.synchronize do
+            @services = services
+          end
+        end
 
+        def select_service
+          s = @mutex.synchronize do
+            s = @services.shift
+            @services.push(s)
+            s
+          end
+          yield(s)
+        end
+      end
+    end
+  end
 end

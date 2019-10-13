@@ -1,5 +1,36 @@
 # v1.7
 
+## Release v1.7.3 - 2019/10/01
+
+### Enhancement
+
+* in_syslog: Replace priority_key with severity_key
+  https://github.com/fluent/fluentd/pull/2636
+
+### Bug fixes
+
+* out_forward: Fix nil error after purge obsoleted sockets in socket cache
+  https://github.com/fluent/fluentd/pull/2635
+* fix typo in ChangeLog
+  https://github.com/fluent/fluentd/pull/2633
+
+## Release v1.7.2 - 2019/09/19
+
+### Enhancement
+
+* in_tcp: Add security/client to restrict access
+  https://github.com/fluent/fluentd/pull/2622
+
+### Bug fixes
+
+* buf_file/buf_file_single: fix to handle compress data during restart
+  https://github.com/fluent/fluentd/pull/2620
+* plugin: Use `__send__` to avoid conflict with user defined `send`
+  https://github.com/fluent/fluentd/pull/2614
+* buffer: reject invalid timekey at configure phase
+  https://github.com/fluent/fluentd/pull/2615
+
+
 ## Release v1.7.1 - 2019/09/08
 
 ### Enhancement
@@ -19,7 +50,7 @@
   https://github.com/fluent/fluentd/pull/2598
 * buf_file_single: fix duplicated path setting check
   https://github.com/fluent/fluentd/pull/2600
-* fix msgpack-ruby depedency to use recent feature
+* fix msgpack-ruby dependency to use recent feature
   https://github.com/fluent/fluentd/pull/2606
 
 
@@ -623,7 +654,7 @@
 
 ## Release v1.0.0 - 2017/12/6
 
-See [CNCF announcment](https://www.cncf.io/blog/2017/12/06/fluentd-v1-0/) :)
+See [CNCF announcement](https://www.cncf.io/blog/2017/12/06/fluentd-v1-0/) :)
 
 ### New features / Enhancements
 
@@ -893,7 +924,7 @@ See [CNCF announcment](https://www.cncf.io/blog/2017/12/06/fluentd-v1-0/) :)
   https://github.com/fluent/fluentd/pull/1492
 * parser: Allow escape sequence in Apache access log
   https://github.com/fluent/fluentd/pull/1479
-* config: Add actual value in the placholder error message
+* config: Add actual value in the placeholder error message
   https://github.com/fluent/fluentd/pull/1497
 * log: Add Fluent::Log#<< to support some SDKs
   https://github.com/fluent/fluentd/pull/1478
@@ -1210,7 +1241,7 @@ See [CNCF announcment](https://www.cncf.io/blog/2017/12/06/fluentd-v1-0/) :)
   https://github.com/fluent/fluentd/pull/1067
 * filter_record_transformer: Fix to prevent overwriting reserved placeholder keys
   https://github.com/fluent/fluentd/pull/1176
-* Migrate some build-in plugins into v0.14 API
+* Migrate some built-in plugins into v0.14 API
   https://github.com/fluent/fluentd/pull/1149
   https://github.com/fluent/fluentd/pull/1151
 * Update dependencies
